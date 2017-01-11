@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title>注音符号转拼音</title>
+	<script type="text/javascript">
+		function changeText() {
+			var intext = document.getElementById("intext").value
+			var symbols = new Array(
+				"ㄅ","ㄆ","ㄇ","ㄈ","ㄪ",
+				"ㄉ","ㄊ","ㄋ","ㄌ","ㄍ",
+				"ㄎ","ㄫ","ㄏ","ㄐ","ㄑ",
+				"ㄬ","ㄒ","ㄓ","ㄔ","ㄕ",
+				"ㄖ","ㄗ","ㄘ","ㄙ","ㄚ",
+				"ㄛ","ㄜ","ㄝ","ㄞ","ㄟ",
+				"ㄠ","ㄡ","ㄢ","ㄣ","ㄤ",
+				"ㄥ","ㄦ","ㄧ","丨","ㄨ","ㄩ")
+			var pinyin = new Array(
+				"b","p","m","f","v",
+				"d","t","n","l","g",
+				"k","ng","h","j","q",
+				" ","x","zh","ch","sh",
+				"r","z","c","s","a",
+				"o","e","ê","ai","ei",
+				"ao","ou","an","en","ang",
+				"eng","er","i","i","u","ü")
+			var outtext = ""
+			for (var i=0;i<intext.length;i++) {
+				for (var j = 0; j < symbols.length; j++) {
+					if(symbols[j]==intext.charAt(i)){
+						if (intext.charAt(i)=="ㄧ"||intext.charAt(i)=="丨") {
+							if (i==0) {
+								outtext += "y"
+								break
+							}
+							if (i>0&&(intext.charAt(i-1)==" "||intext.charAt(i-1)==","||intext.charAt(i-1)=="，")) {
+								outtext += "y"
+								break
+							}
+							if (intext.charAt(i+1)=="ㄚ") {
+								outtext += "ia"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄛ") {
+								outtext += "io"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄝ") {
+								outtext += "ie"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄞ") {
+								outtext += "ai"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄠ") {
+								outtext += "iao"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄡ") {
+								outtext += "iu"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄢ") {
+								outtext += "ian"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄣ") {
+								outtext += "in"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄤ") {
+								outtext += "iang"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄥ") {
+								outtext += "ing"
+								i++
+								break
+							}
+						}
+
+
+						if (intext.charAt(i)=="ㄨ") {
+							if (i==0) {
+								outtext += "w"
+								break
+							}
+							if (i>0&&(intext.charAt(i-1)==" ")||intext.charAt(i-1)==","||intext.charAt(i-1)=="，") {
+								outtext += "w"
+								break
+							}
+							if (intext.charAt(i+1)=="ㄚ") {
+								outtext += "ua"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄛ") {
+								outtext += "uo"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄞ") {
+								outtext += "uai"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄟ") {
+								outtext += "ui"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄢ") {
+								outtext += "uan"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄣ") {
+								outtext += "un"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄤ") {
+								outtext += "uang"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄥ") {
+								outtext += "ong"
+								i++
+								break
+							}
+						}
+
+						if (intext.charAt(i)=="ㄩ") {
+							if (intext.charAt(i+1)=="ㄝ") {
+								outtext += "ue"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄢ") {
+								outtext += "uan"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄣ") {
+								outtext += "un"
+								i++
+								break
+							}else if (intext.charAt(i+1)=="ㄥ") {
+								outtext += "iong"
+								i++
+								break
+							}
+						}
+
+						outtext += pinyin[j]
+						break
+					}else if(intext.charAt(i)==" "){
+						outtext += " "
+						break
+					}else if(intext.charAt(i)=="，"||intext.charAt(i)==","){
+						outtext += ","
+						break
+					}else if(intext.charAt(i)=="。"||intext.charAt(i)=="."){
+						outtext += "."
+						break
+					}else if(intext.charAt(i)=="？"||intext.charAt(i)=="?"){
+						outtext += "?"
+						break
+					}else if(intext.charAt(i)=="！"||intext.charAt(i)=="!"){
+						outtext += "!"
+						break
+					}
+					if (j==symbols.length-1){
+						outtext += intext.charAt(i)
+						break
+					}
+				}
+			}
+			document.getElementById("outtext").innerHTML = outtext
+
+		}
+	</script>
+</head>
+<body>
+<input type="text" name="" id="intext" style="width: 90%">
+<p id="outtext"></p>
+<button type="button" onclick="changeText()">change</button>
+</body>
+</html>
